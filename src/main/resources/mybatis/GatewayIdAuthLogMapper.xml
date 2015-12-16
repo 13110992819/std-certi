@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.std.certi.dao.IGatewayIdAuthLogDAO">
+	<resultMap id="gatewayIdAuthLog_DB_Result" type="gatewayIdAuthLog">
+		<result column="id" property="id" />
+		<result column="userId" property="userId" />
+		<result column="systemId" property="systemId" />
+		<result column="realName" property="realName" />
+		<result column="idKind" property="idKind" />
+		<result column="idNo" property="idNo" />	
+		<result column="error_code" property="errorCode" />
+		<result column="error_msg" property="errorMsg" />
+		<result column="remark" property="remark" />
+		<result column="create_datetime" property="createDatetime" />	
+	</resultMap>
+	<sql id="where_condition">
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+			<if test="id != null and id != '' ">
+				AND t.id = #{id}
+			</if>
+			<if test="userId != null and userId != '' ">
+				AND t.userId = #{userId}
+			</if>
+			<if test="systemId != null and systemId != '' ">
+				AND t.systemId = #{systemId}
+			</if>
+			<if test="realName != null and realName != '' ">
+				AND t.realName = #{realName}
+			</if>
+			<if test="idKind != null and idKind != '' ">
+				AND t.idKind = #{idKind}
+			</if>
+			<if test="idNo != null and idNo != '' ">
+				AND t.idNo = #{idNo}
+			</if>
+			<if test="errorCode != null and errorCode != '' ">
+				AND t.error_code = #{errorCode}
+			</if>
+			<if test="errorMsg != null and errorMsg != '' ">
+				AND t.error_msg = #{errorMsg}
+			</if>
+			<if test="remark != null and remark != '' ">
+				AND t.remark = #{remark}
+			</if>
+			<if test="createDatetime != null and createDatetime != '' ">
+				<![CDATA[AND t.create_datetime >= #{createDatetime}]]>
+			</if>			
+		</trim>
+	</sql>
+	<select id="select_gatewayIdAuthLog" parameterType="gatewayIdAuthLog"
+		resultMap="gatewayIdAuthLog_DB_Result">
+		SELECT
+		id
+		,userId
+		,systemId
+		,realName
+		,idKind
+		,idNo
+		,error_code
+		,error_msg
+		,remark
+		,create_datetime
+		FROM
+		gateway_idauth_log t
+		<include refid="where_condition" />
+		order by create_datetime desc
+		<!--  
+		<trim prefix="ORDER BY ">
+			<if test="order != null and order != '' ">
+				#{order}
+			</if>
+		</trim>
+		-->
+	</select>
+
+	<select id="select_gatewayIdAuthLog_count" parameterType="gatewayIdAuthLog"
+		resultType="java.lang.Long">
+		SELECT count(1) FROM gateway_idauth_log t
+		<include refid="where_condition" />
+	</select>
+
+	<insert id="insert_gatewayIdAuthLog" parameterType="gatewayIdAuthLog">
+		INSERT INTO
+		gateway_idauth_log(
+		userId
+		,systemId
+		,realName
+		,idKind
+		,idNo
+		,error_code
+		,error_msg
+		,remark
+		,create_datetime
+		)
+		VALUES(
+		#{userId}
+		,#{systemId}
+		,#{realName}
+		,#{idKind}	
+		,#{idNo}
+		,#{errorCode}
+		,#{errorMsg}
+		,#{remark}
+		,#{createDatetime}
+		)
+	</insert>
+	
+	<update id="update_gatewayIdAuthLog" parameterType="gatewayIdAuthLog">
+		UPDATE gateway_idauth_log set		
+		userId=#{userId}
+		,systemId=#{systemId}
+		,realName=#{realName}
+		,idKind=#{idKind}
+		,idNo=#{idNo}
+		,error_code=#{errorCode}
+		,error_msg=#{errorMsg}
+		,remark=#{remark}
+		,create_datetime=#{createDatetime}
+		WHERE
+		id = #{id}
+	</update>
+
+	<delete id="delete_gatewayIdAuthLog" parameterType="gatewayIdAuthLog">
+		DELETE FROM
+		gateway_idauth_log
+		WHERE
+		id = #{id}
+	</delete>
+</mapper>

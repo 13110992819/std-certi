@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.std.certi.dao.IIdAuthDAO">
+	<resultMap id="tjcIdAuth_DB_Result" type="idAuth">
+		<result column="id" property="id" />
+		<result column="userId" property="userId" />
+		<result column="systemId" property="systemId" />
+		<result column="realName" property="realName" />
+		<result column="idKind" property="idKind" />
+		<result column="idNo" property="idNo" />	
+		<result column="create_datetime" property="createDatetime" />	
+	</resultMap>
+	<sql id="where_condition">
+		<trim prefix="WHERE" prefixOverrides="AND | OR">
+			<if test="id != null and id != '' ">
+				AND t.id = #{id}
+			</if>
+			<if test="userId != null and userId != '' ">
+				AND t.userId = #{userId}
+			</if>
+			<if test="systemId != null and systemId != '' ">
+				AND t.systemId = #{systemId}
+			</if>
+			<if test="realName != null and realName != '' ">
+				AND t.realName = #{realName}
+			</if>
+			<if test="idKind != null and idKind != '' ">
+				AND t.idKind = #{idKind}
+			</if>
+			<if test="idNo != null and idNo != '' ">
+				AND t.idNo = #{idNo}
+			</if>
+			<if test="createDatetime != null and createDatetime != '' ">
+				<![CDATA[AND t.create_datetime >= #{createDatetime}]]>
+			</if>			
+		</trim>
+	</sql>
+	<select id="select_tjcIdAuth" parameterType="idAuth"
+		resultMap="tjcIdAuth_DB_Result">
+		SELECT
+		id
+		,userId
+		,systemId
+		,realName
+		,idKind
+		,idNo
+		,create_datetime
+		FROM
+		tjc_idauth t
+		<include refid="where_condition" />
+		order by create_datetime desc
+		<!--  
+		<trim prefix="ORDER BY ">
+			<if test="order != null and order != '' ">
+				#{order}
+			</if>
+		</trim>
+		-->
+	</select>
+
+	<select id="select_tjcIdAuth_count" parameterType="idAuth"
+		resultType="java.lang.Long">
+		SELECT count(1) FROM tjc_idauth t
+		<include refid="where_condition" />
+	</select>
+
+	<insert id="insert_tjcIdAuth" parameterType="idAuth">
+		INSERT INTO
+		tjc_idauth(
+		userId
+		,systemId
+		,realName
+		,idKind
+		,idNo
+		,create_datetime
+		)
+		VALUES(
+		#{userId}
+		,#{systemId}
+		,#{realName}
+		,#{idKind}	
+		,#{idNo}
+		,#{createDatetime}
+		)
+	</insert>
+	
+	<update id="update_tjcIdAuth" parameterType="idAuth">
+		UPDATE tjc_idauth set		
+		userId=#{userId}
+		,systemId=#{systemId}
+		,realName=#{realName}
+		,idKind=#{idKind}
+		,idNo=#{idNo}
+		,create_datetime=#{createDatetime}
+		WHERE
+		id = #{id}
+	</update>
+
+	<delete id="delete_tjcIdAuth" parameterType="idAuth">
+		DELETE FROM
+		tjc_idauth
+		WHERE
+		id = #{id}
+	</delete>
+</mapper>
