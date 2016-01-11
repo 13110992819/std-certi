@@ -14,27 +14,25 @@ java DatGen '{"ipList":["127.0.0.1"],"codeList":["798001"]}'
   cd /Users/myb858/Documents/workspace/.metadata/.plugins/org.eclipse.wst.server.core/tmp11/wtpwebapps/
 
 2，打包
-  rm -rf idAuth.tar.gz
-  tar zcvf idAuth.tar.gz xn-idAuth/
-  scp -P53422 ./idAuth.tar.gz root@115.29.140.31:/home/
-  scp -P54012 ./idAuth.tar.gz root@121.42.196.238:/home/
+  rm -rf certi.tar.gz
+  tar zcvf certi.tar.gz std-certi/
+  scp -P57652 ./certi.tar.gz root@120.55.113.192:/home/
   
   
 3，部署
-  ssh root@115.29.140.31 -p 53422
-  ssh root@121.42.196.238 -p 54012
+  ssh root@120.55.113.192 -p 57652
   
-  cd /home/tomcat_GJS_idauth/webapps/
-  rm -rf idAuth.tar.gz
-  cp ./xn-idAuth/WEB-INF/classes/application.properties .
-  cp ./xn-idAuth/WEB-INF/classes/config.properties .
-  rm -rf xn-idAuth/
-  mv /home/idAuth.tar.gz .
-  tar zxvf idAuth.tar.gz
-  mv -f application.properties ./xn-idAuth/WEB-INF/classes/
-  mv -f config.properties ./xn-idAuth/WEB-INF/classes/
+  cd /home/tomcat_STD_certi/webapps/
+  rm -rf certi.tar.gz
+  cp ./std-certi/WEB-INF/classes/application.properties .
+  cp ./std-certi/WEB-INF/classes/config.properties .
+  rm -rf std-certi/
+  mv /home/certi.tar.gz .
+  tar zxvf certi.tar.gz
+  mv -f application.properties ./std-certi/WEB-INF/classes/
+  mv -f config.properties ./std-certi/WEB-INF/classes/
 4,起停tomcat_develop_account
 
 
-http://115.29.140.31:8903/xn-idAuth/api
+http://120.55.113.192:8903/std-certi/api
 
