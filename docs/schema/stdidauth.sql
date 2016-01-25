@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 5.6.24, for osx10.8 (x86_64)
 --
--- Host: 121.43.101.148    Database: develop_idauth
+-- Host: 120.55.113.192    Database: xnidauth
 -- ------------------------------------------------------
 -- Server version	5.5.45
 
@@ -65,4 +65,4 @@ CREATE TABLE `tjc_idauth` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-12-06 10:44:03
+-- Dump completed on 2016-01-25 14:42:16
