@@ -39,9 +39,10 @@ public class APIServlet extends HttpServlet {
      */
     protected void doGet(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
-        logger.info("Successful Deployment");
+        logger.info("Successful Deployment \n");
         PrintWriter writer = response.getWriter();
-        writer.append("Version:1.0.0.0 \nDescription:First Deployment ");
+        writer.append("Version:1.6.0 \n");
+        writer.append("Description:first \n");
         writer.flush();
     }
 
