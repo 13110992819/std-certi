@@ -2,7 +2,7 @@ package com.std.certi.domain;
 
 import java.util.Date;
 
-import com.std.user.dao.base.ABaseDO;
+import com.std.certi.dao.base.ABaseDO;
 
 /**
  * @author: luoqi 

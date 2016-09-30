@@ -15,12 +15,12 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.std.user.bo.IUserPictureBO;
-import com.std.user.bo.base.PaginableBOImpl;
-import com.std.user.dao.IUserPictureDAO;
-import com.std.user.domain.UserPicture;
-import com.std.user.enums.EBoolean;
-import com.std.user.enums.EOrderStatus;
+import com.std.certi.bo.IUserPictureBO;
+import com.std.certi.bo.base.PaginableBOImpl;
+import com.std.certi.dao.IUserPictureDAO;
+import com.std.certi.domain.UserPicture;
+import com.std.certi.enums.EBoolean;
+import com.std.certi.enums.EOrderStatus;
 
 /** 
  * @author: luoqi 
@@ -54,7 +54,7 @@ public class UserPictureBOImpl extends PaginableBOImpl<UserPicture> implements
                 && StringUtils.isNotBlank(idUserPic)) {
             UserPicture data = new UserPicture();
             data.setUserId(userId);
-            data.setStatus(EOrderStatus.todoAPPROVE.getCode());
+            data.setStatus(EOrderStatus.UNAPPROVE.getCode());
             data.setIdKind(idKind);
             data.setIdNo(idNo);
             data.setRealName(realName);
@@ -63,7 +63,7 @@ public class UserPictureBOImpl extends PaginableBOImpl<UserPicture> implements
             data.setIdPic2(idPic2);
             data.setIdUserPic(idUserPic);
             data.setCreateDatetime(new Date());
-            data.setRemark(EOrderStatus.todoAPPROVE.getValue());
+            data.setRemark(EOrderStatus.UNAPPROVE.getValue());
             count = userPictureDAO.insert(data);
         }
         return count;

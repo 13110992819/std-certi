@@ -6,9 +6,8 @@ import java.util.List;
 import org.junit.Test;
 import org.unitils.spring.annotation.SpringBeanByType;
 
-import com.std.user.dao.IUserPictureDAO;
-import com.std.user.domain.UserPicture;
-import com.xnjr.account.base.ADAOTest;
+import com.std.certi.dao.IUserPictureDAO;
+import com.std.certi.domain.UserPicture;
 
 /**
  * @author: luoqi 

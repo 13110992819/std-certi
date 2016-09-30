@@ -1,7 +1,7 @@
 package com.std.certi.dao;
 
-import com.std.user.dao.base.IBaseDAO;
-import com.std.user.domain.UserPicture;
+import com.std.certi.dao.base.IBaseDAO;
+import com.std.certi.domain.UserPicture;
 
 /**
  * @author: luoqi 

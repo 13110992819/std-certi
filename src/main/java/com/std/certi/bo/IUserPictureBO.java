@@ -10,8 +10,8 @@ package com.std.certi.bo;
 
 import java.util.List;
 
-import com.std.user.bo.base.IPaginableBO;
-import com.std.user.domain.UserPicture;
+import com.std.certi.bo.base.IPaginableBO;
+import com.std.certi.domain.UserPicture;
 
 /** 
  * @author: luoqi 

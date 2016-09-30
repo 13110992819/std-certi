@@ -4,9 +4,9 @@ import java.util.List;
 
 import org.springframework.stereotype.Repository;
 
-import com.std.user.dao.IUserPictureDAO;
-import com.std.user.dao.base.support.AMybatisTemplate;
-import com.std.user.domain.UserPicture;
+import com.std.certi.dao.IUserPictureDAO;
+import com.std.certi.dao.base.support.AMybatisTemplate;
+import com.std.certi.domain.UserPicture;
 
 /**
  * @author: luoqi 
@@ -73,6 +73,15 @@ public class UserPictureDAOImpl extends AMybatisTemplate implements
     @Override
     public int updateVerifyUserPicture(UserPicture data) {
         return super.update(NAMESPACE.concat("update_VerifyUserPicture"), data);
+    }
+
+    /** 
+     * @see com.std.certi.dao.base.IBaseDAO#update(java.lang.Object)
+     */
+    @Override
+    public int update(UserPicture data) {
+        // TODO Auto-generated method stub
+        return 0;
     }
 
 }

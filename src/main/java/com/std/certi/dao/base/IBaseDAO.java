@@ -17,7 +17,7 @@ import java.util.List;
  */
 public interface IBaseDAO<T> {
     public int insert(T data);
-    
+
     public int update(T data);
 
     public int delete(T data);
