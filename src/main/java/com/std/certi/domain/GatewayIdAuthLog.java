@@ -22,6 +22,10 @@ public class GatewayIdAuthLog extends ABaseDO {
 
     private String realName;
 
+    private String cardNo;
+
+    private String bindMobile;
+
     private String remark;
 
     private String errorCode;
@@ -30,6 +34,22 @@ public class GatewayIdAuthLog extends ABaseDO {
 
     // 创建时间
     private Date createDatetime;
+
+    public String getCardNo() {
+        return cardNo;
+    }
+
+    public void setCardNo(String cardNo) {
+        this.cardNo = cardNo;
+    }
+
+    public String getBindMobile() {
+        return bindMobile;
+    }
+
+    public void setBindMobile(String bindMobile) {
+        this.bindMobile = bindMobile;
+    }
 
     public Long getId() {
         return id;

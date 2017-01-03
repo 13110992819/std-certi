@@ -1,33 +1,29 @@
-package com.std.certi.domain;
+package com.std.certi.dto.req;
 
-import java.util.Date;
-
-import com.std.certi.dao.base.ABaseDO;
-
-public class IdAuth extends ABaseDO {
-    /** 
-     * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么) 
-     */
-    private static final long serialVersionUID = 1422562818706606517L;
-
-    private Long id;
-
+public class XN798006Req {
+    // 系统编号(必填)
     private String systemId;
 
+    // userId(必填)
     private String userId;
 
+    // 证件类型(必填)
     private String idKind;
 
+    // 身份号(必填)
     private String idNo;
 
+    // 真实姓名(必填)
     private String realName;
 
+    // 卡号(必填)
     private String cardNo;
 
+    // 绑定手机号(选填)
     private String bindMobile;
 
-    // 创建时间
-    private Date createDatetime;
+    // 备注(选填)
+    private String remark;
 
     public String getCardNo() {
         return cardNo;
@@ -45,12 +41,12 @@ public class IdAuth extends ABaseDO {
         this.bindMobile = bindMobile;
     }
 
-    public Long getId() {
-        return id;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getSystemId() {
@@ -61,12 +57,12 @@ public class IdAuth extends ABaseDO {
         this.systemId = systemId;
     }
 
-    public String getUserId() {
-        return userId;
+    public String getRealName() {
+        return realName;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setRealName(String realName) {
+        this.realName = realName;
     }
 
     public String getIdKind() {
@@ -85,20 +81,11 @@ public class IdAuth extends ABaseDO {
         this.idNo = idNo;
     }
 
-    public String getRealName() {
-        return realName;
+    public String getRemark() {
+        return remark;
     }
 
-    public void setRealName(String realName) {
-        this.realName = realName;
+    public void setRemark(String remark) {
+        this.remark = remark;
     }
-
-    public Date getCreateDatetime() {
-        return createDatetime;
-    }
-
-    public void setCreateDatetime(Date createDatetime) {
-        this.createDatetime = createDatetime;
-    }
-
 }

@@ -62,7 +62,7 @@ public class GatewayIdAuthLogBOImpl extends PaginableBOImpl<GatewayIdAuthLog>
             Date createDatetime = last.getCreateDatetime();
             Long m = DateUtil.daysBetween(createDatetime, new Date());
             if (m != null && m < iMaxValidTime) {
-                throw new BizException("xn798001", "请于" + iMaxValidTime
+                throw new BizException("xn798000", "请于" + iMaxValidTime
                         + "秒之后，再次尝试");
             }
         }
@@ -73,25 +73,27 @@ public class GatewayIdAuthLogBOImpl extends PaginableBOImpl<GatewayIdAuthLog>
         logger.debug("maxInvokeCount===>>" + iMaxInvokeCount);
         long count = this.getCount(systemId, userId);
         if (count >= iMaxInvokeCount) {
-            throw new BizException("xn798001", "实名认证超过上限" + iMaxInvokeCount
+            throw new BizException("xn798000", "实名认证超过上限" + iMaxInvokeCount
                     + "次，请使用人工方式进行认证");
         }
     }
 
     @Override
     public void doSave(String systemId, String userId, String idKind,
-            String idNo, String realName, String remark, VerifyResult result) {
+            String idNo, String realName, String cardNo, String bindMobile,
+            String remark, VerifyResult result) {
         GatewayIdAuthLog data = new GatewayIdAuthLog();
         data.setSystemId(systemId);
         data.setUserId(userId);
         data.setIdKind(idKind);
         data.setIdNo(idNo);
         data.setRealName(realName);
+        data.setCardNo(cardNo);
+        data.setBindMobile(bindMobile);
         data.setRemark(remark);
         data.setErrorCode(result.getErrorCode());
         data.setErrorMsg(result.getErrorMsg());
         data.setCreateDatetime(new Date());
         gatewayIdAuthLogDAO.insert(data);
     }
-
 }

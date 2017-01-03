@@ -12,4 +12,7 @@ public interface IIdentityAO {
     public void doSave(String systemId, String userId, String idKind,
             String idNo, String realName, String remark, VerifyResult result);
 
+    public void doFourVerify(String systemId, String userId, String idKind,
+            String idNo, String realName, String cardNo, String bindMobile,
+            String remark);
 }

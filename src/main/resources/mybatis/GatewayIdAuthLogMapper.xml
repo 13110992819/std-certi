@@ -9,6 +9,8 @@
 		<result column="realName" property="realName" />
 		<result column="idKind" property="idKind" />
 		<result column="idNo" property="idNo" />	
+		<result column="card_no" property="cardNo" />	
+		<result column="bind_mobile" property="bindMobile" />	
 		<result column="error_code" property="errorCode" />
 		<result column="error_msg" property="errorMsg" />
 		<result column="remark" property="remark" />
@@ -34,6 +36,12 @@
 			<if test="idNo != null and idNo != '' ">
 				AND t.idNo = #{idNo}
 			</if>
+			<if test="cardNo != null and cardNo != '' ">
+				AND t.card_no = #{cardNo}
+			</if>
+			<if test="bindMobile != null and bindMobile != '' ">
+				AND t.bind_mobile = #{bindMobile}
+			</if>
 			<if test="errorCode != null and errorCode != '' ">
 				AND t.error_code = #{errorCode}
 			</if>
@@ -57,6 +65,8 @@
 		,realName
 		,idKind
 		,idNo
+		,card_no
+		,bind_mobile
 		,error_code
 		,error_msg
 		,remark
@@ -88,6 +98,8 @@
 		,realName
 		,idKind
 		,idNo
+		,card_no
+		,bind_mobile
 		,error_code
 		,error_msg
 		,remark
@@ -99,6 +111,8 @@
 		,#{realName}
 		,#{idKind}	
 		,#{idNo}
+		,#{cardNo}
+		,#{bindMobile}
 		,#{errorCode}
 		,#{errorMsg}
 		,#{remark}
@@ -113,6 +127,9 @@
 		,realName=#{realName}
 		,idKind=#{idKind}
 		,idNo=#{idNo}
+		
+		,card_no=#{cardNo}
+		,bind_mobile=#{bindMobile}
 		,error_code=#{errorCode}
 		,error_msg=#{errorMsg}
 		,remark=#{remark}

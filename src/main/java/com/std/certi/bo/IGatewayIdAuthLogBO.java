@@ -48,11 +48,14 @@ public interface IGatewayIdAuthLogBO extends IPaginableBO<GatewayIdAuthLog> {
      * @param idKind
      * @param idNo
      * @param realName
+     * @param cardNo
+     * @param bindMobile
      * @param remark
      * @param result 
-     * @create: 2015年12月4日 下午1:37:05 myb858
+     * @create: 2017年1月3日 下午5:02:39 xieyj
      * @history:
      */
     public void doSave(String systemId, String userId, String idKind,
-            String idNo, String realName, String remark, VerifyResult result);
+            String idNo, String realName, String cardNo, String bindMobile,
+            String remark, VerifyResult result);
 }

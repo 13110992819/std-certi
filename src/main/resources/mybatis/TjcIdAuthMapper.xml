@@ -9,6 +9,8 @@
 		<result column="realName" property="realName" />
 		<result column="idKind" property="idKind" />
 		<result column="idNo" property="idNo" />	
+		<result column="card_no" property="cardNo" />	
+		<result column="bind_mobile" property="bindMobile" />
 		<result column="create_datetime" property="createDatetime" />	
 	</resultMap>
 	<sql id="where_condition">
@@ -31,6 +33,12 @@
 			<if test="idNo != null and idNo != '' ">
 				AND t.idNo = #{idNo}
 			</if>
+			<if test="cardNo != null and cardNo != '' ">
+				AND t.card_no = #{cardNo}
+			</if>
+			<if test="bindMobile != null and bindMobile != '' ">
+				AND t.bind_mobile = #{bindMobile}
+			</if>
 			<if test="createDatetime != null and createDatetime != '' ">
 				<![CDATA[AND t.create_datetime >= #{createDatetime}]]>
 			</if>			
@@ -45,6 +53,8 @@
 		,realName
 		,idKind
 		,idNo
+		,card_no
+		,bind_mobile
 		,create_datetime
 		FROM
 		tjc_idauth t
@@ -73,6 +83,8 @@
 		,realName
 		,idKind
 		,idNo
+		,card_no
+		,bind_mobile
 		,create_datetime
 		)
 		VALUES(
@@ -81,6 +93,8 @@
 		,#{realName}
 		,#{idKind}	
 		,#{idNo}
+		,#{cardNo}
+		,#{bindMobile}
 		,#{createDatetime}
 		)
 	</insert>
@@ -92,6 +106,9 @@
 		,realName=#{realName}
 		,idKind=#{idKind}
 		,idNo=#{idNo}
+		
+		,card_no=#{cardNo}
+		,bind_mobile=#{bindMobile}
 		,create_datetime=#{createDatetime}
 		WHERE
 		id = #{id}

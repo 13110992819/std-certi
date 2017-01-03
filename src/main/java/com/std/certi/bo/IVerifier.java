@@ -14,4 +14,17 @@ public interface IVerifier {
      */
     VerifyResult doVerify(String idKind, String idNo, String realName);
 
+    /**
+     * 四要素调用三方接口
+     * @param idKind
+     * @param idNo
+     * @param realName
+     * @param cardNo
+     * @param bindMobile
+     * @return 
+     * @create: 2017年1月3日 下午5:15:03 xieyj
+     * @history:
+     */
+    VerifyResult doVerify(String idKind, String idNo, String realName,
+            String cardNo, String bindMobile);
 }

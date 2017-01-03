@@ -20,8 +20,8 @@ public class ConfigLoader {
 
         InputStream is = ConfigLoader.class.getResourceAsStream(des
             .decrypt("00CA312C2F85A60D69262E77D19884D3"));
-        System.out.println("=======>>>"+des
-            .decrypt("00CA312C2F85A60D69262E77D19884D3"));
+        System.out.println("=======>>>"
+                + des.decrypt("00CA312C2F85A60D69262E77D19884D3"));
 
         /*
          * FileInputStream fo = new FileInputStream(new File(
@@ -36,10 +36,10 @@ public class ConfigLoader {
         }
         is.close();
         String configjson = des.decrypt(des.byteArr2HexStr(bos.toByteArray()));
-        System.out.println("configjson=======>>>"+configjson);
-        configjson=configjson.substring(1, configjson.length()-1);
+        System.out.println("configjson=======>>>" + configjson);
+        // configjson=configjson.substring(1, configjson.length()-1);
 
-        //'{ipList:[127.0.0.1],codeList:[798001]}'
+        // '{ipList:[127.0.0.1],codeList:[798001]}'
         return new Gson().fromJson(configjson, ConfigDescribe.class);
     }
 }

@@ -18,6 +18,8 @@ public class IdAuthHttpUtil {
 
     private static final String IDAUTH_URL = "http://121.40.136.150:8080/IdInDataAu/api/spAuthenInfoApi.htm";
 
+    //
+
     // private static final String IDBALANCE_URL =
     // "http://121.40.136.150:8080/IdInDataAu/api/queryActBalance.htm";
 
