@@ -5,6 +5,14 @@ public class VerifyResult {
 
     private String errorMsg;
 
+    public VerifyResult() {
+    }
+
+    public VerifyResult(String errorCode, String errorMsg) {
+        this.errorCode = errorCode;
+        this.errorMsg = errorMsg;
+    }
+
     public String getErrorCode() {
         return errorCode;
     }

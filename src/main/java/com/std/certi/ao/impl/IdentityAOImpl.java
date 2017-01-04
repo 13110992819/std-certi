@@ -91,9 +91,8 @@ public class IdentityAOImpl implements IIdentityAO {
                 idAuthBO.doSave(systemId, userId, idKind, idNo, realName,
                     cardNo, bindMobile);
             } else {
-                throw new BizException("xn798006", "认证失败，失败原因:"
-                        + result.getErrorMsg() + "(异常编号:"
-                        + result.getErrorCode() + ")");
+                throw new BizException("xn798006", "认证失败，失败原因："
+                        + result.getErrorMsg());
             }
         }
     }
