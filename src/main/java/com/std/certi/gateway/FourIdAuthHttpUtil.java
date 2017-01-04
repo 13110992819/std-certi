@@ -2,6 +2,7 @@ package com.std.certi.gateway;
 
 import org.apache.log4j.Logger;
 
+import com.std.certi.common.PropertiesUtil;
 import com.std.certi.core.HttpClientAccessTool;
 import com.std.certi.core.JsonUtils;
 import com.std.certi.domain.VerifyResult;
@@ -15,13 +16,14 @@ public class FourIdAuthHttpUtil {
     public static void main(String[] args) throws Exception {
         try {
             String authType = "bankcardAuth";
-            String idNo = "330326199007015211";
+            String idNo = "123456";
             String idName = "谢延径";
             String mobileNo = "";
-            String cardNo = "6217231202001071643";
+            String cardNo = "6217231202001071646";
             String sendUrl = IDAUTH_URL + "?authType=" + authType + "&id_no="
                     + idNo + "&id_name=" + idName + "&mobile_no=" + mobileNo
-                    + "&card_no=" + cardNo;
+                    + "&card_no=" + cardNo + "&auth_key="
+                    + PropertiesUtil.Config.AUTH_KEY;
             logger.debug(sendUrl);
             String backEncodType = "utf-8";
             String resultMsg = HttpClientAccessTool.doAccessHTTPGet(sendUrl,
@@ -40,7 +42,8 @@ public class FourIdAuthHttpUtil {
         String authType = "bankcardAuth";
         String sendUrl = IDAUTH_URL + "?authType=" + authType + "&id_no="
                 + idNo + "&id_name=" + realName + "&mobile_no=" + bindMobile
-                + "&card_no=" + cardNo;
+                + "&card_no=" + cardNo + "&auth_key="
+                + PropertiesUtil.Config.AUTH_KEY;
         System.out.println("sendUrl:" + sendUrl);
         String backEncodType = "utf-8";
         String resultMsg = HttpClientAccessTool.doAccessHTTPGet(sendUrl,
