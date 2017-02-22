@@ -30,16 +30,19 @@ public class XN798006 extends AProcessor {
 
     @Override
     public Object doBusiness() throws BizException {
-        identityAO.doFourVerify(req.getSystemId(), req.getUserId(),
-            req.getIdKind(), req.getIdNo(), req.getRealName(), req.getCardNo(),
-            req.getBindMobile(), req.getRemark());
+        identityAO.doFourVerify(req.getSystemCode(), req.getCompanyCode(),
+            req.getUserId(), req.getIdKind(), req.getIdNo(), req.getRealName(),
+            req.getCardNo(), req.getBindMobile(), req.getRemark());
         return new BooleanRes(true);
     }
 
     @Override
     public void doCheck(String inputparams) throws ParaException {
         req = JsonUtil.json2Bean(inputparams, XN798006Req.class);
-        if (StringUtils.isBlank(req.getSystemId())) {
+        if (StringUtils.isBlank(req.getSystemCode())) {
+            throw new ParaException("xn000000", "系统编号不能为空");
+        }
+        if (StringUtils.isBlank(req.getCompanyCode())) {
             throw new ParaException("xn000000", "系统编号不能为空");
         }
         if (StringUtils.isBlank(req.getUserId())) {

@@ -15,15 +15,15 @@ public class IdAuthDAOImpl extends AMybatisTemplate implements IIdAuthDAO {
     public int insert(IdAuth data) {
         return super.insert(NAMESPACE.concat("insert_tjcIdAuth"), data);
     }
-    
+
     @Override
     public int update(IdAuth data) {
-        return super.insert(NAMESPACE.concat("update_tjcIdAuth"), data);
+        return 0;
     }
 
     @Override
     public int delete(IdAuth data) {
-        return super.update(NAMESPACE.concat("delete_tjcIdAuth"), data);
+        return 0;
     }
 
     @Override
@@ -34,14 +34,14 @@ public class IdAuthDAOImpl extends AMybatisTemplate implements IIdAuthDAO {
 
     @Override
     public long selectTotalCount(IdAuth condition) {
-        return super.selectTotalCount(NAMESPACE.concat("select_tjcIdAuth_count"),
-            condition);
+        return super.selectTotalCount(
+            NAMESPACE.concat("select_tjcIdAuth_count"), condition);
     }
 
     @Override
     public List<IdAuth> selectList(IdAuth condition) {
-        return super.selectList(NAMESPACE.concat("select_tjcIdAuth"), condition,
-        		IdAuth.class);
+        return super.selectList(NAMESPACE.concat("select_tjcIdAuth"),
+            condition, IdAuth.class);
     }
 
     @Override

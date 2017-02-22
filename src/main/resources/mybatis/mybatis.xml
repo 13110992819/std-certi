@@ -4,5 +4,7 @@
 	<typeAliases>		
 	     <typeAlias alias="gatewayIdAuthLog" type="com.std.certi.domain.GatewayIdAuthLog" />
 	     <typeAlias alias="idAuth" type="com.std.certi.domain.IdAuth" />
+	     <typeAlias alias="cPassword" type="com.std.certi.domain.CPassword" />
+	     <typeAlias alias="userPicture" type="com.std.certi.domain.UserPicture" />
 	</typeAliases>	
 </configuration>	

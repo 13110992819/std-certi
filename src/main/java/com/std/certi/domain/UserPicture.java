@@ -23,10 +23,11 @@ public class UserPicture extends ABaseDO {
     // ***************** db propertity ******************
     private Long id;
 
-    private String userId;
+    private String systemCode;
 
-    // 状态
-    private String status;
+    private String companyCode;
+
+    private String userId;
 
     // 证件类型
     private String idKind;
@@ -46,6 +47,9 @@ public class UserPicture extends ABaseDO {
     // 本人手持证件照片
     private String idUserPic;
 
+    // 状态
+    private String status;
+
     // 上传日期
     private Date createDatetime;
 
@@ -57,6 +61,30 @@ public class UserPicture extends ABaseDO {
 
     // 备注
     private String remark;
+
+    public String getSystemCode() {
+        return systemCode;
+    }
+
+    public void setSystemCode(String systemCode) {
+        this.systemCode = systemCode;
+    }
+
+    public String getCompanyCode() {
+        return companyCode;
+    }
+
+    public void setCompanyCode(String companyCode) {
+        this.companyCode = companyCode;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
 
     public Date getCreateDatetimeStart() {
         return createDatetimeStart;
@@ -80,14 +108,6 @@ public class UserPicture extends ABaseDO {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
     }
 
     public String getStatus() {

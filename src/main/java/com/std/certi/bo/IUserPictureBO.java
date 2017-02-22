@@ -19,12 +19,15 @@ import com.std.certi.domain.UserPicture;
  * @history:
  */
 public interface IUserPictureBO extends IPaginableBO<UserPicture> {
-    public int saveUserPicture(String userId, String realName, String idKind,
-            String idNo, String idPic1, String idPic2, String idUserPic);
+    public int saveUserPicture(String systemCode, String companyCode,
+            String userId, String idKind, String idNo, String realName,
+            String idPic1, String idPic2, String idUserPic, String remark);
 
-    public int refreshVerifyUserPicture(Long id, String verifyUser,
+    public int doVerifyUserPicture(Long id, String verifyUser,
             String verifyResult, String remark);
 
-    public List<UserPicture> queryUserPictureList(UserPicture data);
+    public List<UserPicture> queryUserPictureList(UserPicture conditon);
+
+    public UserPicture getUserPicture(Long id);
 
 }

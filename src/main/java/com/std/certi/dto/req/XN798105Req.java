@@ -1,26 +1,27 @@
 package com.std.certi.dto.req;
 
-public class XN798001Req {
-    // 系统编号(必填)
+public class XN798105Req extends APageReq {
+
     private String systemCode;
 
-    // 公司编号(必填)
     private String companyCode;
 
-    // userId(必填)
     private String userId;
 
-    // 证件类型(必填)
+    // 证件类型
     private String idKind;
 
-    // 身份号(必填)
+    // 证件号码
     private String idNo;
 
-    // 真实姓名(必填)
+    // 真实姓名
     private String realName;
 
-    // 备注(选填)
-    private String remark;
+    // 状态
+    private String status;
+
+    // 验证人
+    private String verifyUser;
 
     public String getSystemCode() {
         return systemCode;
@@ -46,14 +47,6 @@ public class XN798001Req {
         this.userId = userId;
     }
 
-    public String getRealName() {
-        return realName;
-    }
-
-    public void setRealName(String realName) {
-        this.realName = realName;
-    }
-
     public String getIdKind() {
         return idKind;
     }
@@ -70,11 +63,28 @@ public class XN798001Req {
         this.idNo = idNo;
     }
 
-    public String getRemark() {
-        return remark;
+    public String getRealName() {
+        return realName;
     }
 
-    public void setRemark(String remark) {
-        this.remark = remark;
+    public void setRealName(String realName) {
+        this.realName = realName;
     }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getVerifyUser() {
+        return verifyUser;
+    }
+
+    public void setVerifyUser(String verifyUser) {
+        this.verifyUser = verifyUser;
+    }
+
 }

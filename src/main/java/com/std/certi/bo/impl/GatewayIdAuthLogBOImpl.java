@@ -27,37 +27,14 @@ public class GatewayIdAuthLogBOImpl extends PaginableBOImpl<GatewayIdAuthLog>
     private IGatewayIdAuthLogDAO gatewayIdAuthLogDAO;
 
     @Override
-    public GatewayIdAuthLog getLastOne(String systemId, String userId) {
-        GatewayIdAuthLog result = null;
-        if (StringUtils.isBlank(systemId) && StringUtils.isNotBlank(userId)) {
-            GatewayIdAuthLog condition = new GatewayIdAuthLog();
-            condition.setSystemId(systemId);
-            condition.setUserId(userId);
-            List<GatewayIdAuthLog> list = gatewayIdAuthLogDAO
-                .selectList(condition);
-            if (CollectionUtils.isNotEmpty(list)) {
-                result = list.get(0);
-            }
-        }
-        return result;
-    }
-
-    @Override
-    public long getCount(String systemId, String userId) {
-        GatewayIdAuthLog condition = new GatewayIdAuthLog();
-        condition.setSystemId(systemId);
-        condition.setUserId(userId);
-        return gatewayIdAuthLogDAO.selectTotalCount(condition);
-    }
-
-    @Override
-    public void checkConfig(String systemId, String userId) {
+    public void checkConfig(String systemCode, String companyCode, String userId) {
         // 校验间隔时间
         String maxValidTime = PropertiesUtil.getProperty("maxValidTime");
         Integer iMaxValidTime = StringUtils.isEmpty(maxValidTime) ? 60
                 : Integer.valueOf(maxValidTime); // 间隔时间默认为60s
         logger.debug("maxValidTime===>>" + iMaxValidTime);
-        GatewayIdAuthLog last = this.getLastOne(systemId, userId);
+        GatewayIdAuthLog last = this
+            .getLastOne(systemCode, companyCode, userId);
         if (last != null) {
             Date createDatetime = last.getCreateDatetime();
             Long m = DateUtil.daysBetween(createDatetime, new Date());
@@ -71,19 +48,45 @@ public class GatewayIdAuthLogBOImpl extends PaginableBOImpl<GatewayIdAuthLog>
         Integer iMaxInvokeCount = StringUtils.isEmpty(maxInvokeCount) ? 3
                 : Integer.valueOf(maxInvokeCount);// 最大调用次数默认为3次
         logger.debug("maxInvokeCount===>>" + iMaxInvokeCount);
-        long count = this.getCount(systemId, userId);
+        long count = this.getCount(systemCode, companyCode, userId);
         if (count >= iMaxInvokeCount) {
             throw new BizException("xn798000", "实名认证超过上限" + iMaxInvokeCount
                     + "次，请使用人工方式进行认证");
         }
     }
 
+    private GatewayIdAuthLog getLastOne(String systemCode, String companyCode,
+            String userId) {
+        GatewayIdAuthLog result = null;
+        if (StringUtils.isBlank(systemCode) && StringUtils.isNotBlank(userId)) {
+            GatewayIdAuthLog condition = new GatewayIdAuthLog();
+            condition.setSystemCode(systemCode);
+            condition.setCompanyCode(companyCode);
+            condition.setUserId(userId);
+            List<GatewayIdAuthLog> list = gatewayIdAuthLogDAO
+                .selectList(condition);
+            if (CollectionUtils.isNotEmpty(list)) {
+                result = list.get(0);
+            }
+        }
+        return result;
+    }
+
+    private long getCount(String systemCode, String companyCode, String userId) {
+        GatewayIdAuthLog condition = new GatewayIdAuthLog();
+        condition.setSystemCode(systemCode);
+        condition.setCompanyCode(companyCode);
+        condition.setUserId(userId);
+        return gatewayIdAuthLogDAO.selectTotalCount(condition);
+    }
+
     @Override
-    public void doSave(String systemId, String userId, String idKind,
-            String idNo, String realName, String cardNo, String bindMobile,
-            String remark, VerifyResult result) {
+    public void doSave(String systemCode, String companyCode, String userId,
+            String idKind, String idNo, String realName, String cardNo,
+            String bindMobile, String remark, VerifyResult result) {
         GatewayIdAuthLog data = new GatewayIdAuthLog();
-        data.setSystemId(systemId);
+        data.setSystemCode(systemCode);
+        data.setCompanyCode(companyCode);
         data.setUserId(userId);
         data.setIdKind(idKind);
         data.setIdNo(idNo);

@@ -21,11 +21,9 @@ public class IdAuthBOImpl implements IIdAuthBO {
     private IIdAuthDAO idAuthDAO;
 
     @Override
-    public void doSave(String systemId, String userId, String idKind,
-            String idNo, String realName, String cardNo, String bindMobile) {
+    public void doSave(String idKind, String idNo, String realName,
+            String cardNo, String bindMobile) {
         IdAuth data = new IdAuth();
-        data.setSystemId(systemId);
-        data.setUserId(userId);
         data.setIdKind(idKind);
         data.setIdNo(idNo);
         data.setRealName(realName);
@@ -36,7 +34,7 @@ public class IdAuthBOImpl implements IIdAuthBO {
     }
 
     @Override
-    public IdAuth doGetIdAuth(String idKind, String idNo, String realName,
+    public IdAuth doGet(String idKind, String idNo, String realName,
             String cardNo, String bindMobile) {
         IdAuth result = null;
         if (StringUtils.isNotBlank(idKind) && StringUtils.isNotBlank(idNo)

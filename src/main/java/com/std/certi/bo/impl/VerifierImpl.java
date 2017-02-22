@@ -24,9 +24,6 @@ public class VerifierImpl implements IVerifier {
         return result;
     }
 
-    /** 
-     * @see com.std.certi.bo.IVerifier#doVerify(java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String)
-     */
     @Override
     public VerifyResult doVerify(String idKind, String idNo, String realName,
             String cardNo, String bindMobile) {
@@ -35,7 +32,7 @@ public class VerifierImpl implements IVerifier {
             result = FourIdAuthHttpUtil.httpParse(idNo, realName, cardNo,
                 bindMobile);
         } catch (Exception e) {
-            throw new BizException("xn798001", "调用第三方实名认证时异常");
+            throw new BizException("xn798006", "调用第三方实名认证时异常");
         }
         return result;
     }

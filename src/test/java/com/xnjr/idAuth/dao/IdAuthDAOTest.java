@@ -14,12 +14,22 @@ public class IdAuthDAOTest extends ADAOTest {
 
     @Test
     public void insert() {
-    	IdAuth data = new IdAuth();
-        data.setSystemId("1");
-        data.setUserId("userId");
+        IdAuth data = new IdAuth();
+        data.setCode("code");
         data.setIdKind("1");
         data.setIdNo("idNo");
         data.setRealName("realName");
+        data.setCardNo("cardno");
+        data.setBindMobile("bindMobile");
         data.setCreateDatetime(new Date());
+        tjcIdAuthDAO.insert(data);
+    }
+
+    @Test
+    public void select() {
+        IdAuth data = new IdAuth();
+        data.setCode("code");
+
+        tjcIdAuthDAO.select(data);
     }
 }

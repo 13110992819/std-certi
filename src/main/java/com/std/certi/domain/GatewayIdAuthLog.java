@@ -5,14 +5,13 @@ import java.util.Date;
 import com.std.certi.dao.base.ABaseDO;
 
 public class GatewayIdAuthLog extends ABaseDO {
-    /** 
-     * @Fields serialVersionUID : TODO(用一句话描述这个变量表示什么) 
-     */
     private static final long serialVersionUID = 1422562818706606517L;
 
     private Long id;
 
-    private String systemId;
+    private String systemCode;
+
+    private String companyCode;
 
     private String userId;
 
@@ -26,8 +25,6 @@ public class GatewayIdAuthLog extends ABaseDO {
 
     private String bindMobile;
 
-    private String remark;
-
     private String errorCode;
 
     private String errorMsg;
@@ -35,21 +32,7 @@ public class GatewayIdAuthLog extends ABaseDO {
     // 创建时间
     private Date createDatetime;
 
-    public String getCardNo() {
-        return cardNo;
-    }
-
-    public void setCardNo(String cardNo) {
-        this.cardNo = cardNo;
-    }
-
-    public String getBindMobile() {
-        return bindMobile;
-    }
-
-    public void setBindMobile(String bindMobile) {
-        this.bindMobile = bindMobile;
-    }
+    private String remark;
 
     public Long getId() {
         return id;
@@ -59,12 +42,20 @@ public class GatewayIdAuthLog extends ABaseDO {
         this.id = id;
     }
 
-    public String getSystemId() {
-        return systemId;
+    public String getSystemCode() {
+        return systemCode;
     }
 
-    public void setSystemId(String systemId) {
-        this.systemId = systemId;
+    public void setSystemCode(String systemCode) {
+        this.systemCode = systemCode;
+    }
+
+    public String getCompanyCode() {
+        return companyCode;
+    }
+
+    public void setCompanyCode(String companyCode) {
+        this.companyCode = companyCode;
     }
 
     public String getUserId() {
@@ -99,12 +90,20 @@ public class GatewayIdAuthLog extends ABaseDO {
         this.realName = realName;
     }
 
-    public String getRemark() {
-        return remark;
+    public String getCardNo() {
+        return cardNo;
     }
 
-    public void setRemark(String remark) {
-        this.remark = remark;
+    public void setCardNo(String cardNo) {
+        this.cardNo = cardNo;
+    }
+
+    public String getBindMobile() {
+        return bindMobile;
+    }
+
+    public void setBindMobile(String bindMobile) {
+        this.bindMobile = bindMobile;
     }
 
     public String getErrorCode() {
@@ -121,6 +120,14 @@ public class GatewayIdAuthLog extends ABaseDO {
 
     public void setErrorMsg(String errorMsg) {
         this.errorMsg = errorMsg;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
     }
 
     public Date getCreateDatetime() {

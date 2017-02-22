@@ -1,18 +1,13 @@
 package com.std.certi.ao;
 
-import com.std.certi.domain.VerifyResult;
-
 public interface IIdentityAO {
-    public VerifyResult doVerifyLocal(String idKind, String idNo,
-            String realName);
 
-    public VerifyResult doVerify(String systemId, String userId, String idKind,
-            String idNo, String realName);
-
-    public void doSave(String systemId, String userId, String idKind,
-            String idNo, String realName, String remark, VerifyResult result);
-
-    public void doFourVerify(String systemId, String userId, String idKind,
-            String idNo, String realName, String cardNo, String bindMobile,
+    public void doTwoVerify(String systemCode, String companyCode,
+            String userId, String idKind, String idNo, String realName,
             String remark);
+
+    public void doFourVerify(String systemCode, String companyCode,
+            String userId, String idKind, String idNo, String realName,
+            String cardNo, String bindMobile, String remark);
+
 }

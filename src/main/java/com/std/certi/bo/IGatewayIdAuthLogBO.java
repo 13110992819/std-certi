@@ -11,39 +11,21 @@ import com.std.certi.domain.VerifyResult;
  * @history:
  */
 public interface IGatewayIdAuthLogBO extends IPaginableBO<GatewayIdAuthLog> {
-    /**
-     * 获取最近一个日志
-     * @param systemId
-     * @param userId
-     * @return 
-     * @create: 2015年12月4日 下午1:13:01 myb858
-     * @history:
-     */
-    public GatewayIdAuthLog getLastOne(String systemId, String userId);
 
     /**
-     * 根据条件获取个数
-     * @param systemId
-     * @param userId
-     * @return 
-     * @create: 2015年12月4日 下午1:13:42 myb858
+     *  判断是否符合配置条件
+     * @param systemCode
+     * @param companyCode
+     * @param userId 
+     * @create: 2017年2月22日 下午8:10:12 myb858
      * @history:
      */
-    public long getCount(String systemId, String userId);
-
-    /**
-     * 判断是否符合配置条件
-     * @param systemId
-     * @param userId
-     * @return 
-     * @create: 2015年12月4日 上午11:33:25 myb858
-     * @history:
-     */
-    public void checkConfig(String systemId, String userId);
+    public void checkConfig(String systemCode, String companyCode, String userId);
 
     /**
      * 记录日志
-     * @param systemId
+     * @param systemCode
+     * @param companyCode
      * @param userId
      * @param idKind
      * @param idNo
@@ -52,10 +34,10 @@ public interface IGatewayIdAuthLogBO extends IPaginableBO<GatewayIdAuthLog> {
      * @param bindMobile
      * @param remark
      * @param result 
-     * @create: 2017年1月3日 下午5:02:39 xieyj
+     * @create: 2017年2月22日 下午8:09:51 myb858
      * @history:
      */
-    public void doSave(String systemId, String userId, String idKind,
-            String idNo, String realName, String cardNo, String bindMobile,
-            String remark, VerifyResult result);
+    public void doSave(String systemCode, String companyCode, String userId,
+            String idKind, String idNo, String realName, String cardNo,
+            String bindMobile, String remark, VerifyResult result);
 }

@@ -33,35 +33,37 @@ public class UserPictureBOImpl extends PaginableBOImpl<UserPicture> implements
     @Autowired
     private IUserPictureDAO userPictureDAO;
 
-    /** 
-     * @see com.ibis.pz.user.IUserPictureBO#queryUserPictureList(com.UserPicture.pz.domain.UserPictureDO)
-     */
     @Override
-    public List<UserPicture> queryUserPictureList(UserPicture data) {
-        return userPictureDAO.selectList(data);
+    public List<UserPicture> queryUserPictureList(UserPicture conditon) {
+        return userPictureDAO.selectList(conditon);
     }
 
     @Override
-    public int saveUserPicture(String userId, String realName, String idKind,
-            String idNo, String idPic1, String idPic2, String idUserPic) {
+    public int saveUserPicture(String systemCode, String companyCode,
+            String userId, String idKind, String idNo, String realName,
+            String idPic1, String idPic2, String idUserPic, String remark) {
 
         int count = 0;
-        if (StringUtils.isNotBlank(userId) && StringUtils.isNotBlank(realName)
+        if (StringUtils.isNotBlank(systemCode)
+                && StringUtils.isNotBlank(companyCode)
+                && StringUtils.isNotBlank(userId)
                 && StringUtils.isNotBlank(idKind)
                 && StringUtils.isNotBlank(idNo)
+                && StringUtils.isNotBlank(realName)
                 && StringUtils.isNotBlank(idPic1)
                 && StringUtils.isNotBlank(idPic2)
                 && StringUtils.isNotBlank(idUserPic)) {
             UserPicture data = new UserPicture();
+            data.setSystemCode(systemCode);
+            data.setCompanyCode(companyCode);
             data.setUserId(userId);
-            data.setStatus(EOrderStatus.UNAPPROVE.getCode());
             data.setIdKind(idKind);
             data.setIdNo(idNo);
             data.setRealName(realName);
-
             data.setIdPic1(idPic1);
             data.setIdPic2(idPic2);
             data.setIdUserPic(idUserPic);
+            data.setStatus(EOrderStatus.UNAPPROVE.getCode());
             data.setCreateDatetime(new Date());
             data.setRemark(EOrderStatus.UNAPPROVE.getValue());
             count = userPictureDAO.insert(data);
@@ -70,7 +72,7 @@ public class UserPictureBOImpl extends PaginableBOImpl<UserPicture> implements
     }
 
     @Override
-    public int refreshVerifyUserPicture(Long id, String verifyUser,
+    public int doVerifyUserPicture(Long id, String verifyUser,
             String verifyResult, String remark) {
         int count = 0;
         if (id > 0 && StringUtils.isNotBlank(verifyUser)
@@ -88,5 +90,12 @@ public class UserPictureBOImpl extends PaginableBOImpl<UserPicture> implements
             count = userPictureDAO.updateVerifyUserPicture(data);
         }
         return count;
+    }
+
+    @Override
+    public UserPicture getUserPicture(Long id) {
+        UserPicture condition = new UserPicture();
+        condition.setId(id);
+        return userPictureDAO.select(condition);
     }
 }

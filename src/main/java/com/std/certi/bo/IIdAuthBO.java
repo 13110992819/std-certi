@@ -11,28 +11,21 @@ import com.std.certi.domain.IdAuth;
 
 public interface IIdAuthBO {
 
-    // public void doSave(String systemId, String userId, String idKind,
-    // String idNo, String realName, String cardNo, String bindMobile);
-    //
-    // public IdAuth doGetIdAuth(String idKind, String idNo, String realName);
-
     /**
-     * 保存实名认证
-     * @param systemId
-     * @param userId
+     * 保存真实认证结果
      * @param idKind
      * @param idNo
      * @param realName
      * @param cardNo
      * @param bindMobile 
-     * @create: 2017年1月3日 下午4:56:36 xieyj
+     * @create: 2017年2月22日 下午3:22:52 myb858
      * @history:
      */
-    public void doSave(String systemId, String userId, String idKind,
-            String idNo, String realName, String cardNo, String bindMobile);
+    public void doSave(String idKind, String idNo, String realName,
+            String cardNo, String bindMobile);
 
     /**
-     * 获取实名认证信息
+     * 获取真实认证结果
      * @param idKind
      * @param idNo
      * @param realName
@@ -42,6 +35,6 @@ public interface IIdAuthBO {
      * @create: 2017年1月3日 下午4:57:05 xieyj
      * @history:
      */
-    public IdAuth doGetIdAuth(String idKind, String idNo, String realName,
+    public IdAuth doGet(String idKind, String idNo, String realName,
             String cardNo, String bindMobile);
 }

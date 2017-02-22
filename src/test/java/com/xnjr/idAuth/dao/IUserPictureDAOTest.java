@@ -21,7 +21,12 @@ public class IUserPictureDAOTest extends ADAOTest {
     @Test
     public void insert() {
         UserPicture data = new UserPicture();
-        data.setUserId("1");
+        data.setSystemCode("SystemCode");
+        data.setCompanyCode("companyCode");
+        data.setUserId("userId");
+        data.setIdKind("1");
+        data.setIdNo("idNo");
+        data.setRealName("realName");
         data.setIdPic1("picture1");
         data.setIdPic2("picture2");
         data.setIdUserPic("picture3");
@@ -33,14 +38,6 @@ public class IUserPictureDAOTest extends ADAOTest {
         int lineNum = userPictureDao.insert(data);
         logger.info("insert : {}", lineNum);
     }
-
-    // @Test
-    // public void delete() {
-    // UserPicture data = new UserPicture();
-    // data.setUserId("1");
-    // int lineNum = userPictureDao.delete(data);
-    // logger.info("delete : {}", lineNum);
-    // }
 
     @Test
     public void select() {

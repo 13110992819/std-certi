@@ -15,16 +15,27 @@ public class IGatewayIdAuthLogDAOTest extends ADAOTest {
     @Test
     public void insert() {
         GatewayIdAuthLog data = new GatewayIdAuthLog();
-        data.setSystemId("1");
+        data.setSystemCode("SystemCode");
+        data.setCompanyCode("companyCode");
         data.setUserId("userId");
         data.setIdKind("1");
         data.setIdNo("idNo");
         data.setRealName("realName");
-        data.setRemark("remark");
+        data.setCardNo("cardNo");
+        data.setBindMobile("bindMobile");
         data.setErrorCode("9113");
         data.setErrorMsg("ddd");
         data.setCreateDatetime(new Date());
+        data.setRemark("remark");
         gatewayIdAuthLogDAO.insert(data);
 
+    }
+
+    @Test
+    public void select() {
+        GatewayIdAuthLog data = new GatewayIdAuthLog();
+        data.setSystemCode("SystemCode");
+
+        gatewayIdAuthLogDAO.selectList(data);
     }
 }

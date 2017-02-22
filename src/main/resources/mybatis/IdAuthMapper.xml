@@ -3,35 +3,27 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.std.certi.dao.IIdAuthDAO">
 	<resultMap id="tjcIdAuth_DB_Result" type="idAuth">
-		<result column="id" property="id" />
-		<result column="userId" property="userId" />
-		<result column="systemId" property="systemId" />
-		<result column="realName" property="realName" />
-		<result column="idKind" property="idKind" />
-		<result column="idNo" property="idNo" />	
+		<result column="code" property="code" />
+		<result column="id_kind" property="idKind" />
+		<result column="id_no" property="idNo" />	
+		<result column="real_name" property="realName" />
 		<result column="card_no" property="cardNo" />	
 		<result column="bind_mobile" property="bindMobile" />
 		<result column="create_datetime" property="createDatetime" />	
 	</resultMap>
 	<sql id="where_condition">
 		<trim prefix="WHERE" prefixOverrides="AND | OR">
-			<if test="id != null and id != '' ">
-				AND t.id = #{id}
-			</if>
-			<if test="userId != null and userId != '' ">
-				AND t.userId = #{userId}
-			</if>
-			<if test="systemId != null and systemId != '' ">
-				AND t.systemId = #{systemId}
-			</if>
-			<if test="realName != null and realName != '' ">
-				AND t.realName = #{realName}
+			<if test="code != null and code != '' ">
+				AND t.code = #{code}
 			</if>
 			<if test="idKind != null and idKind != '' ">
-				AND t.idKind = #{idKind}
+				AND t.id_kind = #{idKind}
 			</if>
 			<if test="idNo != null and idNo != '' ">
-				AND t.idNo = #{idNo}
+				AND t.id_no = #{idNo}
+			</if>
+			<if test="realName != null and realName != '' ">
+				AND t.real_name = #{realName}
 			</if>
 			<if test="cardNo != null and cardNo != '' ">
 				AND t.card_no = #{cardNo}
@@ -47,17 +39,15 @@
 	<select id="select_tjcIdAuth" parameterType="idAuth"
 		resultMap="tjcIdAuth_DB_Result">
 		SELECT
-		id
-		,userId
-		,systemId
-		,realName
-		,idKind
-		,idNo
+		code
+		,id_kind
+		,id_no
+		,real_name
 		,card_no
 		,bind_mobile
 		,create_datetime
 		FROM
-		tjc_idauth t
+		tstd_idauth t
 		<include refid="where_condition" />
 		order by create_datetime desc
 		<!--  
@@ -71,53 +61,30 @@
 
 	<select id="select_tjcIdAuth_count" parameterType="idAuth"
 		resultType="java.lang.Long">
-		SELECT count(1) FROM tjc_idauth t
+		SELECT count(1) FROM tstd_idauth t
 		<include refid="where_condition" />
 	</select>
 
 	<insert id="insert_tjcIdAuth" parameterType="idAuth">
 		INSERT INTO
-		tjc_idauth(
-		userId
-		,systemId
-		,realName
-		,idKind
-		,idNo
+		tstd_idauth(
+		code
+		,id_kind
+		,id_no
+		,real_name
 		,card_no
 		,bind_mobile
 		,create_datetime
 		)
 		VALUES(
-		#{userId}
-		,#{systemId}
-		,#{realName}
+		#{code}
 		,#{idKind}	
 		,#{idNo}
+		,#{realName}
 		,#{cardNo}
 		,#{bindMobile}
 		,#{createDatetime}
 		)
 	</insert>
 	
-	<update id="update_tjcIdAuth" parameterType="idAuth">
-		UPDATE tjc_idauth set		
-		userId=#{userId}
-		,systemId=#{systemId}
-		,realName=#{realName}
-		,idKind=#{idKind}
-		,idNo=#{idNo}
-		
-		,card_no=#{cardNo}
-		,bind_mobile=#{bindMobile}
-		,create_datetime=#{createDatetime}
-		WHERE
-		id = #{id}
-	</update>
-
-	<delete id="delete_tjcIdAuth" parameterType="idAuth">
-		DELETE FROM
-		tjc_idauth
-		WHERE
-		id = #{id}
-	</delete>
 </mapper>

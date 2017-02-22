@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.std.certi.dao.IGatewayIdAuthLogDAO">
-	<resultMap id="gatewayIdAuthLog_DB_Result" type="gatewayIdAuthLog">
+<mapper namespace="com.std.certi.dao.IUserPictureDAO">
+	<resultMap id="userPicture_DB_Result" type="userPicture">
 		<result column="id" property="id" />
 		<result column="system_code" property="systemCode" />
 		<result column="company_code" property="companyCode" />
@@ -10,11 +10,13 @@
 		<result column="id_kind" property="idKind" />
 		<result column="id_no" property="idNo" />	
 		<result column="real_name" property="realName" />
-		<result column="card_no" property="cardNo" />	
-		<result column="bind_mobile" property="bindMobile" />
-		<result column="error_code" property="errorCode" />
-		<result column="error_msg" property="errorMsg" />
-		<result column="create_datetime" property="createDatetime" />	
+		<result column="id_pic1" property="idPic1" />	
+		<result column="id_pic2" property="idPic2" />
+		<result column="id_user_pic" property="idUserPic" />
+		<result column="status" property="status" />
+		<result column="create_datetime" property="createDatetime" />
+		<result column="verify_user" property="verifyUser" />
+		<result column="verify_datetime" property="verifyDatetime" />
 		<result column="remark" property="remark" />
 	</resultMap>
 	<sql id="where_condition">
@@ -40,22 +42,23 @@
 			<if test="realName != null and realName != '' ">
 				AND t.real_name = #{realName}
 			</if>
-			<if test="cardNo != null and cardNo != '' ">
-				AND t.card_no = #{cardNo}
+			<if test="status != null and status != '' ">
+				AND t.status = #{status}
 			</if>
-			<if test="bindMobile != null and bindMobile != '' ">
-				AND t.bind_mobile = #{bindMobile}
+			
+			<if test="createDatetimeStart != null and createDatetimeStart != '' ">
+				<![CDATA[AND t.createDatetime >= #{createDatetimeStart}]]>
 			</if>
-			<if test="errorCode != null and errorCode != '' ">
-				AND t.error_code = #{errorCode}
+			<if test="createDatetimeEnd != null and createDatetimeEnd != '' ">
+				<![CDATA[AND t.createDatetime <= #{createDatetimeEnd}]]>
 			</if>
-			<if test="createDatetime != null and createDatetime != '' ">
-				<![CDATA[AND t.create_datetime >= #{createDatetime}]]>
-			</if>			
+			<if test="verifyUser != null and verifyUser != '' ">
+				AND t.verify_user = #{verifyUser}
+			</if>		
 		</trim>
 	</sql>
-	<select id="select_gatewayIdAuthLog" parameterType="gatewayIdAuthLog"
-		resultMap="gatewayIdAuthLog_DB_Result">
+	<select id="select_userPicture" parameterType="userPicture"
+		resultMap="userPicture_DB_Result">
 		SELECT
 		id
 		,system_code
@@ -65,14 +68,16 @@
 		,id_kind
 		,id_no
 		,real_name
-		,card_no
-		,bind_mobile
-		,error_code
-		,error_msg
+		,id_pic1
+		,id_pic2
+		,id_user_pic
+		,status
 		,create_datetime
+		,verify_user
+		,verify_datetime
 		,remark
 		FROM
-		tstd_gateway_idauth_log t
+		tstd_user_picture t
 		<include refid="where_condition" />
 		order by create_datetime desc
 		<!--  
@@ -84,25 +89,26 @@
 		-->
 	</select>
 
-	<select id="select_gatewayIdAuthLog_count" parameterType="gatewayIdAuthLog"
+	<select id="select_userPicture_count" parameterType="userPicture"
 		resultType="java.lang.Long">
-		SELECT count(1) FROM tstd_gateway_idauth_log t
+		SELECT count(1) FROM tstd_user_picture t
 		<include refid="where_condition" />
 	</select>
 
-	<insert id="insert_gatewayIdAuthLog" parameterType="gatewayIdAuthLog">
+	<insert id="insert_userPicture" parameterType="userPicture">
 		INSERT INTO
-		tstd_gateway_idauth_log(
+		tstd_user_picture(
 		system_code
 		,company_code
 		,user_id
+		
 		,id_kind
 		,id_no
 		,real_name
-		,card_no
-		,bind_mobile
-		,error_code
-		,error_msg
+		,id_pic1
+		,id_pic2
+		,id_user_pic
+		,status
 		,create_datetime
 		,remark
 		)
@@ -113,12 +119,22 @@
 		,#{idKind}	
 		,#{idNo}
 		,#{realName}
-		,#{cardNo}
-		,#{bindMobile}
-		,#{errorCode}
-		,#{errorMsg}
+		
+		,#{idPic1}
+		,#{idPic2}
+		,#{idUserPic}
+		,#{status}
 		,#{createDatetime}
 		,#{remark}
 		)
 	</insert>
+	<update id="update_VerifyUserPicture" parameterType="cPassword">
+		UPDATE tstd_user_picture
+		SET
+		status = #{status}
+		,verify_user = #{verifyUser}
+		,verify_datetime = #{verifyDatetime}
+		,remark = #{remark}
+		WHERE id = #{id}
+	</update>
 </mapper>

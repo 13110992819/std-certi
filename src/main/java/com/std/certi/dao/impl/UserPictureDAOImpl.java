@@ -25,11 +25,21 @@ public class UserPictureDAOImpl extends AMybatisTemplate implements
         return super.insert(NAMESPACE.concat("insert_userPicture"), data);
     }
 
+    @Override
+    public int updateVerifyUserPicture(UserPicture data) {
+        return super.update(NAMESPACE.concat("update_VerifyUserPicture"), data);
+    }
+
     /**
      * @see com.ibis.pz.base.IBaseDAO#delete(java.lang.Object)
      */
     @Override
     public int delete(UserPicture data) {
+        return 0;
+    }
+
+    @Override
+    public int update(UserPicture data) {
         return 0;
     }
 
@@ -68,20 +78,6 @@ public class UserPictureDAOImpl extends AMybatisTemplate implements
             int count) {
         return super.selectList(NAMESPACE.concat("select_userPicture"), start,
             count, condition, UserPicture.class);
-    }
-
-    @Override
-    public int updateVerifyUserPicture(UserPicture data) {
-        return super.update(NAMESPACE.concat("update_VerifyUserPicture"), data);
-    }
-
-    /** 
-     * @see com.std.certi.dao.base.IBaseDAO#update(java.lang.Object)
-     */
-    @Override
-    public int update(UserPicture data) {
-        // TODO Auto-generated method stub
-        return 0;
     }
 
 }

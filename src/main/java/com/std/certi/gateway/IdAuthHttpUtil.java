@@ -30,7 +30,6 @@ public class IdAuthHttpUtil {
     private static final String MD5KEY = "1TM31s33fPtks5NdJ1F59k7d3hn9Pc3T";
 
     public static void main(String[] args) throws Exception {
-
         String xml = sendIdAuthPost("431023198108234231", "吴熙瑞");
         VerifyResult result = getIdAuthVerifyMap(xml);
         System.out.println(result);
