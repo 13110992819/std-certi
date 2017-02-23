@@ -7,6 +7,8 @@ import java.util.Date;
 public class DateUtil {
     public static final String FRONT_DATE_FORMAT_STRING = "yyyy-MM-dd";
 
+    public static final String DATA_TIME_PATTERN_4 = "yyyyMMDDhhmmss";
+
     /**
      * 统计两个时间差，返回的是秒数
      * @param beginDate
@@ -56,6 +58,18 @@ public class DateUtil {
             // e.printStackTrace();
         }
         return returnDate;
+    }
+
+    /**
+     * 按格式获取当前时间
+     * @param pattern
+     * @return 
+     * @create: 2015-5-7 上午11:22:04 miyb
+     * @history:
+     */
+    public static String getToday(String pattern) {
+        SimpleDateFormat df = new SimpleDateFormat(pattern);
+        return df.format(new Date());
     }
 
 }

@@ -1,15 +1,24 @@
 package com.std.certi.ao.impl;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.alipay.api.AlipayClient;
+import com.alipay.api.DefaultAlipayClient;
 import com.std.certi.ao.IIdentityAO;
+import com.std.certi.bo.ICPasswordBO;
 import com.std.certi.bo.IGatewayIdAuthLogBO;
 import com.std.certi.bo.IIdAuthBO;
 import com.std.certi.bo.IVerifier;
+import com.std.certi.domain.GatewayIdAuthLog;
 import com.std.certi.domain.IdAuth;
 import com.std.certi.domain.VerifyResult;
+import com.std.certi.domain.ZhimaVerifyResult;
+import com.std.certi.dto.res.BooleanRes;
+import com.std.certi.dto.res.XN798011Res;
 import com.std.certi.enums.EFourVerifyCode;
 import com.std.certi.enums.EVerifyCode;
 import com.std.certi.exception.BizException;
@@ -24,6 +33,9 @@ public class IdentityAOImpl implements IIdentityAO {
 
     @Autowired
     IVerifier verifier;
+
+    @Autowired
+    ICPasswordBO cPasswordBO;
 
     @Override
     @Transactional
@@ -46,7 +58,7 @@ public class IdentityAOImpl implements IIdentityAO {
                 bindMobile);
             // 处理结果记录日志
             gatewayIdAuthLogBO.doSave(systemCode, companyCode, userId, idKind,
-                idNo, realName, cardNo, bindMobile, remark, result);
+                idNo, realName, cardNo, bindMobile, null, null, remark, result);
             // 如果成功：结果表落地
             if (EFourVerifyCode.Pass.getCode().equalsIgnoreCase(
                 result.getErrorCode())) {
@@ -78,7 +90,7 @@ public class IdentityAOImpl implements IIdentityAO {
             // DB落地
             // 日志落地
             gatewayIdAuthLogBO.doSave(systemCode, companyCode, userId, idKind,
-                idNo, realName, null, null, remark, result);
+                idNo, realName, null, null, null, null, remark, result);
             // 如果成功：结果表落地
             if (EVerifyCode.Pass.getCode().equalsIgnoreCase(
                 result.getErrorCode())) {
@@ -88,5 +100,78 @@ public class IdentityAOImpl implements IIdentityAO {
                         + result.getErrorMsg());
             }
         }
+    }
+
+    @Override
+    @Transactional
+    public Object doZhimaVerify(String systemCode, String companyCode,
+            String userId, String idKind, String idNo, String realName,
+            String remark) {
+        // 本地验证：不限次数
+        VerifyResult result = null;
+        IdAuth idAuth = idAuthBO.doGet(idKind, idNo, realName, null, null);
+        if (idAuth != null) {// 本地认证通过
+            result = new VerifyResult();
+            result.setErrorCode(EFourVerifyCode.Pass.getCode());
+            result.setErrorMsg(EFourVerifyCode.Pass.getValue());
+            return new BooleanRes(true);
+        } else {
+            XN798011Res res = new XN798011Res();
+            // 取系统配置
+            Map<String, String> passwordsMap = getPassword(systemCode,
+                companyCode);
+            AlipayClient alipayClient = getAlipayClient(passwordsMap);
+            // 认证初始化，取得biz_no
+            String bizNo = verifier.getZhimaBizNo(alipayClient, realName, idNo);
+            // 开始认证，取得认证url
+            String url = verifier.getZhimaVerifyURL(alipayClient,
+                passwordsMap.get("return_url"), bizNo);
+            res.setBizNo(bizNo);
+            res.setUrl(url);
+            // 日志落地
+            gatewayIdAuthLogBO.doSave(systemCode, companyCode, userId, idKind,
+                idNo, realName, null, null, bizNo, url, remark,
+                new VerifyResult());
+            return res;
+        }
+    }
+
+    @Override
+    public boolean doZhimaQuery(String systemCode, String companyCode,
+            String bizNo) {
+        Map<String, String> passwordsMap = getPassword(systemCode, companyCode);
+        AlipayClient alipayClient = getAlipayClient(passwordsMap);
+        // 如果日志errorCode、errorMsg为空，说明还未实名成功
+        GatewayIdAuthLog gatewayIdAuthLog = gatewayIdAuthLogBO
+            .getGatewayIdAuthLogByBizNo(bizNo);
+        ZhimaVerifyResult result = verifier.doVerify(alipayClient, bizNo);
+        // 更新结果
+        gatewayIdAuthLogBO.refreshErrorInfo(gatewayIdAuthLog.getId(),
+            result.getErrorCode(),
+            result.getErrorMsg() + " 认证结果:" + result.isPassed());
+        // 如果成功：结果表落地
+        if (result.isPassed()) {
+            idAuthBO.doSave(gatewayIdAuthLog.getIdKind(),
+                gatewayIdAuthLog.getIdNo(), gatewayIdAuthLog.getRealName(),
+                null, null);
+        }
+        return result.isPassed();
+    }
+
+    private AlipayClient getAlipayClient(Map<String, String> passwordsMap) {
+        return new DefaultAlipayClient(passwordsMap.get("url"),
+            passwordsMap.get("app_id"), passwordsMap.get("app_private_key"),
+            "json", "utf-8", passwordsMap.get("alipay_public_key"), "RSA2");
+
+    }
+
+    private Map<String, String> getPassword(String systemCode,
+            String companyCode) {
+        Map<String, String> passwordsMap = cPasswordBO.queryCPasswordMap(
+            systemCode, companyCode, "1");
+        if (passwordsMap.size() <= 0) {
+            throw new BizException("xn000000", "获取芝麻认证配置失败，请仔细检查");
+        }
+        return passwordsMap;
     }
 }

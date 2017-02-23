@@ -1,6 +1,8 @@
 package com.std.certi.bo;
 
+import com.alipay.api.AlipayClient;
 import com.std.certi.domain.VerifyResult;
+import com.std.certi.domain.ZhimaVerifyResult;
 
 public interface IVerifier {
     /**
@@ -27,4 +29,12 @@ public interface IVerifier {
      */
     VerifyResult doVerify(String idKind, String idNo, String realName,
             String cardNo, String bindMobile);
+
+    public String getZhimaBizNo(AlipayClient alipayClient, String realName,
+            String idNo);
+
+    public String getZhimaVerifyURL(AlipayClient alipayClient,
+            String returnUrl, String bizNo);
+
+    public ZhimaVerifyResult doVerify(AlipayClient alipayClient, String bizNo);
 }

@@ -53,4 +53,9 @@ public class GatewayIdAuthLogDAOImpl extends AMybatisTemplate implements
             start, count, condition, GatewayIdAuthLog.class);
     }
 
+    @Override
+    public int updateErrorInfo(GatewayIdAuthLog data) {
+        return super.update(NAMESPACE.concat("update_errorInfo"), data);
+    }
+
 }

@@ -5,4 +5,6 @@ import com.std.certi.domain.GatewayIdAuthLog;
 
 public interface IGatewayIdAuthLogDAO extends IBaseDAO<GatewayIdAuthLog> {
     String NAMESPACE = IGatewayIdAuthLogDAO.class.getName().concat(".");
+
+    public int updateErrorInfo(GatewayIdAuthLog data);
 }

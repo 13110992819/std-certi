@@ -12,6 +12,8 @@
 		<result column="real_name" property="realName" />
 		<result column="card_no" property="cardNo" />	
 		<result column="bind_mobile" property="bindMobile" />
+		<result column="zhima_biz_no" property="zhimaBizNo" />
+		<result column="zhima_url" property="zhimaUrl" />
 		<result column="error_code" property="errorCode" />
 		<result column="error_msg" property="errorMsg" />
 		<result column="create_datetime" property="createDatetime" />	
@@ -46,6 +48,9 @@
 			<if test="bindMobile != null and bindMobile != '' ">
 				AND t.bind_mobile = #{bindMobile}
 			</if>
+			<if test="zhimaBizNo != null and zhimaBizNo != '' ">
+				AND t.zhima_biz_no = #{zhimaBizNo}
+			</if>
 			<if test="errorCode != null and errorCode != '' ">
 				AND t.error_code = #{errorCode}
 			</if>
@@ -67,6 +72,8 @@
 		,real_name
 		,card_no
 		,bind_mobile
+		,zhima_biz_no
+		,zhima_url
 		,error_code
 		,error_msg
 		,create_datetime
@@ -101,6 +108,8 @@
 		,real_name
 		,card_no
 		,bind_mobile
+		,zhima_biz_no
+		,zhima_url
 		,error_code
 		,error_msg
 		,create_datetime
@@ -115,10 +124,20 @@
 		,#{realName}
 		,#{cardNo}
 		,#{bindMobile}
+		,#{zhimaBizNo}
+		,#{zhimaUrl}
 		,#{errorCode}
 		,#{errorMsg}
 		,#{createDatetime}
 		,#{remark}
 		)
 	</insert>
+	
+	<update id="update_errorInfo" parameterType="gatewayIdAuthLog">
+		UPDATE tstd_gateway_idauth_log
+		SET
+		error_code = #{errorCode}
+		,error_msg = #{errorMsg}
+		WHERE id = #{id}
+	</update>
 </mapper>

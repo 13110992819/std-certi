@@ -83,7 +83,8 @@ public class GatewayIdAuthLogBOImpl extends PaginableBOImpl<GatewayIdAuthLog>
     @Override
     public void doSave(String systemCode, String companyCode, String userId,
             String idKind, String idNo, String realName, String cardNo,
-            String bindMobile, String remark, VerifyResult result) {
+            String bindMobile, String zhimaBizNo, String zhimaUrl,
+            String remark, VerifyResult result) {
         GatewayIdAuthLog data = new GatewayIdAuthLog();
         data.setSystemCode(systemCode);
         data.setCompanyCode(companyCode);
@@ -93,10 +94,38 @@ public class GatewayIdAuthLogBOImpl extends PaginableBOImpl<GatewayIdAuthLog>
         data.setRealName(realName);
         data.setCardNo(cardNo);
         data.setBindMobile(bindMobile);
+        data.setZhimaBizNo(zhimaBizNo);
+        data.setZhimaUrl(zhimaUrl);
         data.setRemark(remark);
         data.setErrorCode(result.getErrorCode());
         data.setErrorMsg(result.getErrorMsg());
         data.setCreateDatetime(new Date());
         gatewayIdAuthLogDAO.insert(data);
+    }
+
+    @Override
+    public GatewayIdAuthLog getGatewayIdAuthLogByBizNo(String zhimaBizNo) {
+        GatewayIdAuthLog gatewayIdAuthLog = null;
+        if (StringUtils.isNotBlank(zhimaBizNo)) {
+            GatewayIdAuthLog condition = new GatewayIdAuthLog();
+            condition.setZhimaBizNo(zhimaBizNo);
+            List<GatewayIdAuthLog> lists = gatewayIdAuthLogDAO
+                .selectList(condition);
+            if (lists.size() > 0) {
+                gatewayIdAuthLog = lists.get(0);
+            } else {
+                throw new BizException("xn798012", "根据芝麻认证bizNo获取实名日志记录失败");
+            }
+        }
+        return gatewayIdAuthLog;
+    }
+
+    @Override
+    public int refreshErrorInfo(Long id, String errorCode, String errorMsg) {
+        GatewayIdAuthLog data = new GatewayIdAuthLog();
+        data.setErrorCode(errorCode);
+        data.setErrorMsg(errorMsg);
+        data.setId(id);
+        return gatewayIdAuthLogDAO.updateErrorInfo(data);
     }
 }

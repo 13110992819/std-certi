@@ -25,6 +25,10 @@ public class GatewayIdAuthLog extends ABaseDO {
 
     private String bindMobile;
 
+    private String zhimaBizNo;
+
+    private String zhimaUrl;
+
     private String errorCode;
 
     private String errorMsg;
@@ -104,6 +108,22 @@ public class GatewayIdAuthLog extends ABaseDO {
 
     public void setBindMobile(String bindMobile) {
         this.bindMobile = bindMobile;
+    }
+
+    public String getZhimaBizNo() {
+        return zhimaBizNo;
+    }
+
+    public void setZhimaBizNo(String zhimaBizNo) {
+        this.zhimaBizNo = zhimaBizNo;
+    }
+
+    public String getZhimaUrl() {
+        return zhimaUrl;
+    }
+
+    public void setZhimaUrl(String zhimaUrl) {
+        this.zhimaUrl = zhimaUrl;
     }
 
     public String getErrorCode() {
