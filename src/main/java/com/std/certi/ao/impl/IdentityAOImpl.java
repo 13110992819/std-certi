@@ -137,6 +137,7 @@ public class IdentityAOImpl implements IIdentityAO {
     }
 
     @Override
+    @Transactional
     public boolean doZhimaQuery(String systemCode, String companyCode,
             String bizNo) {
         Map<String, String> passwordsMap = getPassword(systemCode, companyCode);

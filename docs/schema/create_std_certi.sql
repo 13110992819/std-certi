@@ -5,10 +5,11 @@ CREATE TABLE `tstd_cpassword` (
   `company_code` varchar(32) DEFAULT NULL COMMENT '公司编号',
   `type` varchar(4) DEFAULT NULL COMMENT '类别',
   `account` varchar(64) DEFAULT NULL COMMENT 'key',
-  `password` varchar(64) DEFAULT NULL COMMENT 'value',
+  `password` text COMMENT 'value',
   `remark` varchar(255) DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='系统配置表';
+
 
 DROP TABLE IF EXISTS `tstd_idauth`;
 CREATE TABLE `tstd_idauth` (
@@ -34,12 +35,15 @@ CREATE TABLE `tstd_gateway_idauth_log` (
   `real_name` varchar(16) NOT NULL COMMENT '真实姓名',
   `card_no` varchar(255) DEFAULT NULL COMMENT '银行卡号',
   `bind_mobile` varchar(32) DEFAULT NULL COMMENT '绑定手机号',
-  `error_code` varchar(16) NOT NULL COMMENT '三方验证结果',
-  `error_msg` varchar(255) NOT NULL COMMENT '三方验证信息',
+  `zhima_biz_no` varchar(32) DEFAULT NULL COMMENT '芝麻认证唯一标识',
+  `zhima_url` text COMMENT '芝麻认证url',
+  `error_code` varchar(16) DEFAULT NULL COMMENT '三方验证结果',
+  `error_msg` varchar(255) DEFAULT NULL COMMENT '三方验证信息',
   `create_datetime` datetime NOT NULL COMMENT '创建时间',
   `remark` varchar(255) DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='三方认证日志表';
+
 
 DROP TABLE IF EXISTS `tstd_user_picture`;
 CREATE TABLE `tstd_user_picture` (

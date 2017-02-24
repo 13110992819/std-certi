@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.std.certi.bo.IIdAuthBO;
+import com.std.certi.core.OrderNoGenerater;
 import com.std.certi.dao.IIdAuthDAO;
 import com.std.certi.domain.IdAuth;
 
@@ -24,6 +25,7 @@ public class IdAuthBOImpl implements IIdAuthBO {
     public void doSave(String idKind, String idNo, String realName,
             String cardNo, String bindMobile) {
         IdAuth data = new IdAuth();
+        data.setCode(OrderNoGenerater.generate("SM"));
         data.setIdKind(idKind);
         data.setIdNo(idNo);
         data.setRealName(realName);
