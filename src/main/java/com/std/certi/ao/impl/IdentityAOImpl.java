@@ -17,8 +17,8 @@ import com.std.certi.domain.GatewayIdAuthLog;
 import com.std.certi.domain.IdAuth;
 import com.std.certi.domain.VerifyResult;
 import com.std.certi.domain.ZhimaVerifyResult;
-import com.std.certi.dto.res.BooleanRes;
 import com.std.certi.dto.res.XN798011Res;
+import com.std.certi.dto.res.XN798012Res;
 import com.std.certi.enums.EFourVerifyCode;
 import com.std.certi.enums.EVerifyCode;
 import com.std.certi.exception.BizException;
@@ -104,9 +104,10 @@ public class IdentityAOImpl implements IIdentityAO {
 
     @Override
     @Transactional
-    public Object doZhimaVerify(String systemCode, String companyCode,
+    public XN798011Res doZhimaVerify(String systemCode, String companyCode,
             String userId, String idKind, String idNo, String realName,
             String remark) {
+        XN798011Res xn798011Res = new XN798011Res();
         // 本地验证：不限次数
         VerifyResult result = null;
         IdAuth idAuth = idAuthBO.doGet(idKind, idNo, realName, null, null);
@@ -114,9 +115,9 @@ public class IdentityAOImpl implements IIdentityAO {
             result = new VerifyResult();
             result.setErrorCode(EFourVerifyCode.Pass.getCode());
             result.setErrorMsg(EFourVerifyCode.Pass.getValue());
-            return new BooleanRes(true);
+            xn798011Res.setSuccess(true);
         } else {
-            XN798011Res res = new XN798011Res();
+            xn798011Res.setSuccess(false);
             // 取系统配置
             Map<String, String> passwordsMap = getPassword(systemCode,
                 companyCode);
@@ -126,20 +127,22 @@ public class IdentityAOImpl implements IIdentityAO {
             // 开始认证，取得认证url
             String url = verifier.getZhimaVerifyURL(alipayClient,
                 passwordsMap.get("return_url"), bizNo);
-            res.setBizNo(bizNo);
-            res.setUrl(url);
+            xn798011Res.setBizNo(bizNo);
+            xn798011Res.setUrl(url);
             // 日志落地
             gatewayIdAuthLogBO.doSave(systemCode, companyCode, userId, idKind,
                 idNo, realName, null, null, bizNo, url, remark,
                 new VerifyResult());
-            return res;
+
         }
+        return xn798011Res;
     }
 
     @Override
     @Transactional
-    public boolean doZhimaQuery(String systemCode, String companyCode,
+    public XN798012Res doZhimaQuery(String systemCode, String companyCode,
             String bizNo) {
+        XN798012Res xn798012Res = new XN798012Res();
         Map<String, String> passwordsMap = getPassword(systemCode, companyCode);
         AlipayClient alipayClient = getAlipayClient(passwordsMap);
         // 如果日志errorCode、errorMsg为空，说明还未实名成功
@@ -156,7 +159,11 @@ public class IdentityAOImpl implements IIdentityAO {
                 gatewayIdAuthLog.getIdNo(), gatewayIdAuthLog.getRealName(),
                 null, null);
         }
-        return result.isPassed();
+        xn798012Res.setSuccess(result.isPassed());
+        xn798012Res.setIdKind(gatewayIdAuthLog.getIdKind());
+        xn798012Res.setIdNo(gatewayIdAuthLog.getIdNo());
+        xn798012Res.setRealName(gatewayIdAuthLog.getRealName());
+        return xn798012Res;
     }
 
     private AlipayClient getAlipayClient(Map<String, String> passwordsMap) {

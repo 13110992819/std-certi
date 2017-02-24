@@ -14,7 +14,6 @@ import com.std.certi.ao.IIdentityAO;
 import com.std.certi.api.AProcessor;
 import com.std.certi.common.JsonUtil;
 import com.std.certi.dto.req.XN798012Req;
-import com.std.certi.dto.res.BooleanRes;
 import com.std.certi.exception.BizException;
 import com.std.certi.exception.ParaException;
 import com.std.certi.spring.SpringContextHolder;
@@ -34,8 +33,8 @@ public class XN798012 extends AProcessor {
 
     @Override
     public Object doBusiness() throws BizException {
-        return new BooleanRes(identityAO.doZhimaQuery(req.getSystemCode(),
-            req.getCompanyCode(), req.getBizNo()));
+        return identityAO.doZhimaQuery(req.getSystemCode(),
+            req.getCompanyCode(), req.getBizNo());
     }
 
     @Override

@@ -14,11 +14,22 @@ package com.std.certi.dto.res;
  * @history:
  */
 public class XN798011Res {
+    // 是否在本地实名成功
+    private boolean isSuccess;
+
     // 认证标识
     private String bizNo;
 
     // 认证URL
     private String url;
+
+    public boolean isSuccess() {
+        return isSuccess;
+    }
+
+    public void setSuccess(boolean isSuccess) {
+        this.isSuccess = isSuccess;
+    }
 
     public String getBizNo() {
         return bizNo;
