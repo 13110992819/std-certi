@@ -2,6 +2,7 @@ package com.std.certi.ao.impl;
 
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -106,7 +107,7 @@ public class IdentityAOImpl implements IIdentityAO {
     @Transactional
     public XN798011Res doZhimaVerify(String systemCode, String companyCode,
             String userId, String idKind, String idNo, String realName,
-            String remark) {
+            String returnUrl, String remark) {
         XN798011Res xn798011Res = new XN798011Res();
         // 本地验证：不限次数
         VerifyResult result = null;
@@ -124,9 +125,12 @@ public class IdentityAOImpl implements IIdentityAO {
             AlipayClient alipayClient = getAlipayClient(passwordsMap);
             // 认证初始化，取得biz_no
             String bizNo = verifier.getZhimaBizNo(alipayClient, realName, idNo);
-            // 开始认证，取得认证url
-            String url = verifier.getZhimaVerifyURL(alipayClient,
-                passwordsMap.get("return_url"), bizNo);
+            // 开始认证，如果传入的url为空，设置认证url
+            if (StringUtils.isBlank(returnUrl)) {
+                returnUrl = passwordsMap.get("return_url");
+            }
+            String url = verifier.getZhimaVerifyURL(alipayClient, returnUrl,
+                bizNo);
             xn798011Res.setBizNo(bizNo);
             xn798011Res.setUrl(url);
             // 日志落地

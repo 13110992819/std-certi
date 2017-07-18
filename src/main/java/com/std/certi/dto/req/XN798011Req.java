@@ -19,6 +19,9 @@ public class XN798011Req {
     // 真实姓名(必填)
     private String realName;
 
+    // 回调地址(选填)
+    private String returnUrl;
+
     // 备注(选填)
     private String remark;
 
@@ -70,6 +73,14 @@ public class XN798011Req {
         this.realName = realName;
     }
 
+    public String getReturnUrl() {
+        return returnUrl;
+    }
+
+    public void setReturnUrl(String returnUrl) {
+        this.returnUrl = returnUrl;
+    }
+
     public String getRemark() {
         return remark;
     }
@@ -77,5 +88,4 @@ public class XN798011Req {
     public void setRemark(String remark) {
         this.remark = remark;
     }
-
 }

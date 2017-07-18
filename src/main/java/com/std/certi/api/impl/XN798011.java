@@ -26,7 +26,8 @@ public class XN798011 extends AProcessor {
     public Object doBusiness() throws BizException {
         return identityAO.doZhimaVerify(req.getSystemCode(),
             req.getCompanyCode(), req.getUserId(), req.getIdKind(),
-            req.getIdNo(), req.getRealName(), req.getRemark());
+            req.getIdNo(), req.getRealName(), req.getReturnUrl(),
+            req.getRemark());
     }
 
     @Override

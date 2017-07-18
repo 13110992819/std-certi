@@ -15,7 +15,7 @@ public interface IIdentityAO {
 
     public XN798011Res doZhimaVerify(String systemCode, String companyCode,
             String userId, String idKind, String idNo, String realName,
-            String remark);
+            String returnUrl, String remark);
 
     public XN798012Res doZhimaQuery(String systemCode, String companyCode,
             String bizNo);
